@@ -1,6 +1,5 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -13,7 +12,7 @@ public class ImageGUI {
         frame = new JFrame("Image GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
-        frame.setVisible(true);
+
     }
 
     public void loadImage(String path) {
