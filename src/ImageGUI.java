@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -8,12 +9,38 @@ public class ImageGUI {
     private BufferedImage image;
     private JFrame frame;
 
+
+    //vir: https://www.youtube.com/watch?v=PD6pd6AMoOI&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=53&ab_channel=BroCode za border layout
     public ImageGUI(){
         frame = new JFrame("Image GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 500);
+        frame.setSize(700, 500);
+        frame.setLayout(new BorderLayout());
+        frame.setResizable(true);
 
+        JPanel centerTextPanel = new JPanel();
+        centerTextPanel.setBackground(Color.RED);
+
+        JLabel textlabel = new JLabel("To select an image, click the select button");
+        textlabel.setForeground(Color.BLUE);
+        textlabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        centerTextPanel.add(textlabel);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.BLUE);
+
+        JButton selectButton = new JButton("Select Image");
+        bottomPanel.add(selectButton);
+
+        centerTextPanel.setPreferredSize(new Dimension(700, 100));
+        bottomPanel.setPreferredSize(new Dimension(700, 50));
+
+        frame.add(centerTextPanel, BorderLayout.CENTER);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+        frame.setVisible(true);
     }
+
+
 
     public void loadImage(String path) {
         try {
