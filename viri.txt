@@ -20,3 +20,11 @@ https://www.youtube.com/watch?v=dvzAuq-YDpM&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkd
 
 https://www.youtube.com/watch?v=PD6pd6AMoOI&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=53&ab_channel=BroCode Dostopno: 12.1.2025 ob 11:51
 
+https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html Dostopno: 12.1.2025 ob 12:30
+
+https://www.youtube.com/watch?v=A6sA9KItwpY&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=66&ab_channel=BroCode Dostopno: 12.1.2025 ob 12:45
+
+https://docs.oracle.com/javase/8/docs/api/javax/swing/JComponent.html Dostopno: 12.1.2025 ob 15:30
+
+https://javarevisited.blogspot.com/2017/04/difference-between-repaint-and-revalidate-in-Swing-Java.html Dostopno: 12.1.2025 ob 15:35
+
