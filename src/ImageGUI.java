@@ -6,12 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.Buffer;
 
 //vir: https://www.youtube.com/watch?v=gp9H0WLxKgU&ab_channel=ProgrammingandMathTutorials
 public class ImageGUI implements ActionListener {
     private BufferedImage image;
     private JFrame frame;
     private JPanel centerTextPanel;
+    private JComboBox kernels;
 
 
     //vir: https://www.youtube.com/watch?v=PD6pd6AMoOI&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=53&ab_channel=BroCode za border layout
@@ -23,7 +25,7 @@ public class ImageGUI implements ActionListener {
         frame.setResizable(true);
 
         centerTextPanel = new JPanel();
-        centerTextPanel.setBackground(Color.RED);
+        centerTextPanel.setBackground(Color.WHITE);
 
         JLabel textlabel = new JLabel("To select an image, click the select button");
         textlabel.setForeground(Color.BLUE);
@@ -36,6 +38,20 @@ public class ImageGUI implements ActionListener {
         JButton selectButton = new JButton("Select Image");
         bottomPanel.add(selectButton);
         selectButton.addActionListener(this);
+
+        String[] kernelOptions = {"Edge Detection", "Sharpen", "Blur", "Gaussian blur 3x3"};
+        kernels = new JComboBox(kernelOptions);
+        bottomPanel.add(kernels);
+
+        JButton processButton = new JButton("Process");
+        bottomPanel.add(processButton);
+
+        processButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                procesImage();
+            }
+        });
 
         centerTextPanel.setPreferredSize(new Dimension(700, 100));
         bottomPanel.setPreferredSize(new Dimension(700, 50));
@@ -67,6 +83,38 @@ public class ImageGUI implements ActionListener {
         } catch (Exception e) {
             System.out.println("Error while loading the image: " + e.getMessage());
         }
+    }
+
+    private void procesImage(){
+
+        String selectedKernel = (String) kernels.getSelectedItem(); //vrne object, castamo
+        double[][] kernel;
+
+        switch (selectedKernel){
+            case "Edge Detection":
+                kernel = Kernel.EDGE_DETECTION;
+                break;
+            case "Sharpen":
+                kernel = Kernel.SHARPEN;
+                break;
+            case "Blur":
+                kernel = Kernel.BLUR;
+                break;
+            case "Gaussian blur 3x3":
+                kernel = Kernel.GAUSSIAN_BLUR_3;
+                break;
+            default:
+                kernel = Kernel.EDGE_DETECTION;
+
+        }
+
+        BufferedImage finalImage = ImgProcessor.convolution(image, kernel);
+
+        centerTextPanel.removeAll();
+        JLabel label = new JLabel(new ImageIcon(finalImage));
+        centerTextPanel.add(label);
+        centerTextPanel.revalidate(); //layout manager recalculates the layout, ko spremenimo component
+        centerTextPanel.repaint(); //redrawing komponente, po spremembi
     }
 
     //vir: https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html za JPG in PNG filter

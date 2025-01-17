@@ -28,3 +28,5 @@ https://docs.oracle.com/javase/8/docs/api/javax/swing/JComponent.html Dostopno: 
 
 https://javarevisited.blogspot.com/2017/04/difference-between-repaint-and-revalidate-in-Swing-Java.html Dostopno: 12.1.2025 ob 15:35
 
+https://www.youtube.com/watch?v=EAxV_eoYrIg&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=65&ab_channel=BroCode Dostopno: 16.1.2025 ob 17:40
+
