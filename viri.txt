@@ -30,3 +30,6 @@ https://javarevisited.blogspot.com/2017/04/difference-between-repaint-and-revali
 
 https://www.youtube.com/watch?v=EAxV_eoYrIg&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=65&ab_channel=BroCode Dostopno: 16.1.2025 ob 17:40
 
+https://docs.oracle.com/javase/8/docs/api/java/awt/Image.html Dostopno: 19.1.2025 ob 10:30
+
+https://cloudinary.com/guides/bulk-image-resize/3-ways-to-resize-images-in-java#buffered-image Dostopno: 19.1.2025 ob 14:38

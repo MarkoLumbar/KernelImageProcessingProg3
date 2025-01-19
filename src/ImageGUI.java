@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.Buffer;
 
 //vir: https://www.youtube.com/watch?v=gp9H0WLxKgU&ab_channel=ProgrammingandMathTutorials
 public class ImageGUI implements ActionListener {
@@ -20,7 +19,7 @@ public class ImageGUI implements ActionListener {
     public ImageGUI(){
         frame = new JFrame("Image GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
+        frame.setSize(900, 700);
         frame.setLayout(new BorderLayout());
         frame.setResizable(true);
 
@@ -40,7 +39,7 @@ public class ImageGUI implements ActionListener {
         selectButton.addActionListener(this);
 
         String[] kernelOptions = {"Edge Detection", "Sharpen", "Blur", "Gaussian blur 3x3"};
-        kernels = new JComboBox(kernelOptions);
+        kernels = new JComboBox<String>(kernelOptions);
         bottomPanel.add(kernels);
 
         JButton processButton = new JButton("Process");
@@ -72,8 +71,11 @@ public class ImageGUI implements ActionListener {
                 return;
             }
 
+            Image scaledImage = scaleImage(image, frame.getWidth(), frame.getHeight()-100); //bottom panel omejitev
+
+
             centerTextPanel.removeAll();
-            JLabel label = new JLabel(new ImageIcon(image));
+            JLabel label = new JLabel(new ImageIcon(scaledImage));
             centerTextPanel.add(label);
             //vir: https://javarevisited.blogspot.com/2017/04/difference-between-repaint-and-revalidate-in-Swing-Java.html
             centerTextPanel.revalidate(); //layout manager recalculates the layout, ko spremenimo component
@@ -85,9 +87,18 @@ public class ImageGUI implements ActionListener {
         }
     }
 
+
     private void procesImage(){
 
+        if (image == null) {
+            JOptionPane.showMessageDialog(frame, "You need to load an image", "Error",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         String selectedKernel = (String) kernels.getSelectedItem(); //vrne object, castamo
+        if (selectedKernel == null){ //to satisfy IDE :) nemore bit null
+            selectedKernel = "Edge Detection";
+        }
         double[][] kernel;
 
         switch (selectedKernel){
@@ -110,12 +121,36 @@ public class ImageGUI implements ActionListener {
 
         BufferedImage finalImage = ImgProcessor.convolution(image, kernel);
 
+        Image scaledImage = scaleImage(finalImage, frame.getWidth(), frame.getHeight()-100); //bottom panel omejitev
+
         centerTextPanel.removeAll();
-        JLabel label = new JLabel(new ImageIcon(finalImage));
+        JLabel label = new JLabel(new ImageIcon(scaledImage));
         centerTextPanel.add(label);
         centerTextPanel.revalidate(); //layout manager recalculates the layout, ko spremenimo component
         centerTextPanel.repaint(); //redrawing komponente, po spremembi
     }
+
+
+
+
+
+    //vir: https://cloudinary.com/guides/bulk-image-resize/3-ways-to-resize-images-in-java#buffered-image
+    private Image scaleImage(BufferedImage image, int maxFrameWidth, int maxFrameHeight){
+        int imgWidth = image.getWidth();
+        int imgHeight = image.getHeight();
+
+        double widthScaleRatio = (double) maxFrameWidth / imgWidth;
+        double heightScaleRatio = (double) maxFrameHeight / imgHeight;
+
+        double scale = Math.min(widthScaleRatio, heightScaleRatio);
+
+        int newScaledWidth = (int) (imgWidth * scale); //cast ker pixel je whole numbers
+        int newScaledHeight = (int) (imgHeight * scale);
+
+        return image.getScaledInstance(newScaledWidth, newScaledHeight, Image.SCALE_SMOOTH);
+    }
+
+
 
     //vir: https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html za JPG in PNG filter
     //vir: https://www.youtube.com/watch?v=A6sA9KItwpY&list=PLZPZq0r_RZOMhCAyywfnYLlrjiVOkdAI1&index=66&ab_channel=BroCode za response handling
@@ -134,7 +169,6 @@ public class ImageGUI implements ActionListener {
             loadImage(selectedFile.getAbsolutePath());
 
         }
-
     }
 }
 

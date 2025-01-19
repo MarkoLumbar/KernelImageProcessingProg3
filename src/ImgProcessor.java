@@ -7,12 +7,13 @@ public class ImgProcessor {
         System.out.println("Convolution");
         int widthColumns = image.getWidth();
         int heightRows = image.getHeight();
+        int imageType = image.getType();
         int kernelWidthColumns = kernel.length;
         int kernelHeightRows = kernel[0].length;
         int kernelOriginX = kernelWidthColumns / 2; //center kernela po x osi
         int kernelOriginY = kernelHeightRows / 2;
 
-        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        BufferedImage newImage = new BufferedImage(widthColumns, heightRows, imageType);
 
         //naivna implementacija iz wikija: https://en.wikipedia.org/wiki/Kernel_(image_processing)
         //loopamo čez sliko in ignoriramo rob, slika bo zato malenkost manjsa
