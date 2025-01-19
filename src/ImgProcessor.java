@@ -13,6 +13,10 @@ public class ImgProcessor {
         int kernelOriginX = kernelWidthColumns / 2; //center kernela po x osi
         int kernelOriginY = kernelHeightRows / 2;
 
+        if (imageType == 0) { //falback za unkown image type
+            imageType = BufferedImage.TYPE_INT_RGB;
+        }
+
         BufferedImage newImage = new BufferedImage(widthColumns, heightRows, imageType);
 
         //naivna implementacija iz wikija: https://en.wikipedia.org/wiki/Kernel_(image_processing)
