@@ -5,6 +5,7 @@ public class ImgProcessor {
 
     public static BufferedImage convolution (BufferedImage image, double[][] kernel){
         System.out.println("Convolution");
+        long start = System.nanoTime(); //zacetek merjenja
         int widthColumns = image.getWidth();
         int heightRows = image.getHeight();
         int imageType = image.getType();
@@ -54,7 +55,8 @@ public class ImgProcessor {
             }
 
         }
-
+        long end = System.nanoTime();
+        System.out.println("Execution time (ms): " + (end - start) / 1_000_000);
         return newImage;
     }
 }
